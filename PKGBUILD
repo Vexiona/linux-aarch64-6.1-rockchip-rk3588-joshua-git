@@ -8,13 +8,16 @@ pkgver=6.1.43.r1266030.gd3e66fee
 pkgrel=1
 arch=('aarch64')
 license=('GPL2')
-url="https://github.com/Joshua-Riek"
+_url="github.com/Joshua-Riek"
+url="https://$url"
 _desc="with patches picked by Joshua Riek focusing on RK3588" 
-makedepends=('cpio' 'xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'dtc')
+makedepends=('cpio' 'xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'dtc' 'gitweb-dlagent')
 options=('!strip')
 _srcname='linux-rockchip'
+_url_git="gitweb-dlagent://${_url}/${_srcname}.git#branch=rk-6.1-rkr1"
+DLAGENTS+=('gitweb-dlagent::/usr/bin/gitweb-dlagent sync %u')
 source=(
-  "git+${url}/${_srcname}.git#branch=rk-6.1-rkr1"
+  "$_url_git"
   'linux.preset'
   'localversion.config'
 )
@@ -32,8 +35,8 @@ pkgver() {
     "$(grep '^PATCHLEVEL = ' Makefile|awk -F' = ' '{print $2}')" \
     "$(grep '^SUBLEVEL = ' Makefile|awk -F' = ' '{print $2}'|grep -vE '^0$'|sed 's/.*/.\0/')" \
     "$(grep '^EXTRAVERSION = ' Makefile|awk -F' = ' '{print $2}'|tr -d -|sed -E 's/rockchip[0-9]+//')" \
-    "$(git rev-list --count HEAD)" \
-    "$(git rev-parse --short=8 HEAD)"
+    "$(gitweb-dlagent version ${_url_git} --pattern \{revision\})" \
+    "$(gitweb-dlagent version ${_url_git} --pattern \{commit:.12s\})"
 }
 
 prepare() {
