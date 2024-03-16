@@ -43,7 +43,7 @@ prepare() {
   rm -rf localversion*
   echo "Setting version..."
   echo "-rockchip" > localversion.10-pkgname
-  #echo "-r$(git rev-list --count HEAD)" > localversion.20-revision
+  #echo "-r$(gitweb-dlagent version ${_url_git} --pattern \{revision\})" > localversion.20-revision
 
   # this is only for local builds so there is no need to integrity check. (if needed)
   for p in ../../custom/*.patch; do
