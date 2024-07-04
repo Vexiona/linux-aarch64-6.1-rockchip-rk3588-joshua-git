@@ -52,7 +52,7 @@ prepare() {
   done
 
   echo "Preparing config..."
-  scripts/kconfig/merge_config.sh -m arch/arm64/configs/rockchip_defconfig ../localversion.config
+  scripts/kconfig/merge_config.sh -m debian.rockchip/config/config.common.ubuntu ../localversion.config
 }
 
 build() {
