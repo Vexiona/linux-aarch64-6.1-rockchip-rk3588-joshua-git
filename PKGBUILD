@@ -2,6 +2,8 @@
 # Maintainer: Jat-faan Wong
 # Contributor: Jat-faan Wong, Guoxin "7Ji" Pu, Joshua-Riek 
 
+_panthor_base=b7b1fc4b011be3359fd165a3f1739b1c63e8ceca
+_panthor_branch=rk-6.1-rkr3-panthor
 pkgbase=linux-aarch64-rockchip-bsp6.1-joshua-git
 pkgname=("${pkgbase}"{,-headers})
 pkgver=6.1.43.r1266030.gd3e66fee
@@ -14,16 +16,18 @@ _desc="with patches picked by Joshua Riek focusing on RK3588"
 makedepends=('cpio' 'xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'dtc' 'gitweb-dlagent')
 options=('!strip')
 _srcname='linux-rockchip'
-_url_git="gitweb-dlagent://${_url}/${_srcname}.git#branch=noble"
+_url_git="gitweb-dlagent://${_url}/${_srcname}.git##branch=noble"
 DLAGENTS+=('gitweb-dlagent::/usr/bin/gitweb-dlagent sync %u')
 source=(
   "$_url_git"
   'localversion.config'
+  "panthor.patch::https://github.com/hbiyik/linux-rockchip/compare/${_panthor_base}...${_panthor_branch}.patch"
 )
 
 sha512sums=(
   'SKIP'
   '9ec050e491788b8428395fc28b6d8486d64d314d8b85e97d8df30a35bd7b85d2ed84682e7b2eaed7b471b73aa51119e360761a099719eed9952713e0caba17ce'
+  'SKIP'
 )
 
 pkgver() {
@@ -50,6 +54,9 @@ prepare() {
     echo "Custom Patching with ${p}"
     patch -p1 -N -i $p || true
   done
+
+  # based on https://github.com/hbiyik/linux-rockchip/tree/noble-panthor
+  patch -p1 -N -i ../panthor.patch
 
   echo "Preparing config..."
   scripts/kconfig/merge_config.sh -m debian.rockchip/config/config.common.ubuntu ../localversion.config
