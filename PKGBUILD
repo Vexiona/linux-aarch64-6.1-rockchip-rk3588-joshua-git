@@ -7,7 +7,7 @@ _panthor_branch=rk-6.1-rkr3-panthor
 pkgbase=linux-aarch64-rockchip-bsp6.1-joshua-git
 pkgname=("${pkgbase}"{,-headers})
 pkgver=6.1.43.r1266030.gd3e66fee
-pkgrel=1
+pkgrel=2  
 arch=('aarch64')
 license=('GPL2')
 url="https://github.com/Joshua-Riek"
@@ -17,13 +17,15 @@ options=('!strip')
 _srcname='linux-rockchip'
 source=(
   "git+${url}/${_srcname}.git#branch=noble"
-  'localversion.config'
+  "config"
+  "linux.preset"
   "panthor.patch::https://github.com/hbiyik/linux/compare/${_panthor_base}...${_panthor_branch}.patch"
 )
 
 sha512sums=(
   'SKIP'
-  '9ec050e491788b8428395fc28b6d8486d64d314d8b85e97d8df30a35bd7b85d2ed84682e7b2eaed7b471b73aa51119e360761a099719eed9952713e0caba17ce'
+  'ee23a548ab4c6cbe09d22b42b6796f5f34b5f4cbd1f077e31dc4c26614a64af80b7b04715844845d87e600f42440e38c53ba6e409b3b3a6748339e9736083493'
+  '60d8c983976d37e218b17511586a316353a8ef14e08477c6d3b5b712d53886617a374b5ea9d2321e1a94c461cf979e6d94cf2c26c3df0da314e53a9223c8329f'
   '9a693c739e90662d2f86c89874638ebba3d75e06c787151f6290d759df92589f4d500c6fe17533c06d2f3437518afaec6488c1c70fb813c7b0b5db9d9d320e20'
 )
 
@@ -56,10 +58,12 @@ prepare() {
   patch -p1 -N -i ../panthor.patch
 
   echo "Preparing config..."
-  scripts/kconfig/merge_config.sh -m debian.rockchip/config/config.common.ubuntu ../localversion.config
+  cat "${srcdir}/config" > '.config'
 }
 
 build() {
+  export ARCH="arm64"
+  export CROSS_COMPILE="aarch64-linux-gnu-"
   cd "${_srcname}"
 
   make olddefconfig prepare
@@ -92,6 +96,10 @@ _package() {
 
   # used by mkinitcpio to name the kernel
   echo "${pkgbase}" | install -D -m 644 /dev/stdin "${_dir_module}/pkgbase"
+
+  # install mkinitcpio preset file
+  sed "s|%PKGBASE%|${pkgbase}|g" ../linux.preset |
+    install -Dm644 /dev/stdin "${pkgdir}/etc/mkinitcpio.d/${pkgbase}.preset"
 }
 
 _package-headers() {
