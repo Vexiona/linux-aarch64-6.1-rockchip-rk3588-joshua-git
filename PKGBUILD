@@ -7,7 +7,7 @@ _panthor_branch=rk-6.1-rkr3-panthor
 pkgbase=linux-aarch64-rockchip-bsp6.1-joshua-git
 pkgname=("${pkgbase}"{,-headers})
 pkgver=6.1.43.r1266030.gd3e66fee
-pkgrel=2  
+pkgrel=3
 arch=('aarch64')
 license=('GPL2')
 url="https://github.com/Joshua-Riek"
@@ -66,7 +66,7 @@ build() {
   export CROSS_COMPILE="aarch64-linux-gnu-"
   cd "${_srcname}"
 
-  make olddefconfig prepare
+  make prepare
   make -s kernelrelease > version
 
   unset LDFLAGS
