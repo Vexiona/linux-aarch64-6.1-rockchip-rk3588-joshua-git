@@ -1,6 +1,6 @@
-pkgbase = linux-aarch64-rockchip-6.1-joshua-git-rk3588
+pkgbase = linux-aarch64-6.1-rockchip-rk3588-joshua-git
 	pkgver = 6.1.43.r1266030.gd3e66fee
-	pkgrel = 4
+	pkgrel = 1
 	url = https://github.com/Joshua-Riek
 	arch = aarch64
 	license = GPL2
@@ -22,13 +22,13 @@ pkgbase = linux-aarch64-rockchip-6.1-joshua-git-rk3588
 	sha512sums = 60d8c983976d37e218b17511586a316353a8ef14e08477c6d3b5b712d53886617a374b5ea9d2321e1a94c461cf979e6d94cf2c26c3df0da314e53a9223c8329f
 	sha512sums = 9a693c739e90662d2f86c89874638ebba3d75e06c787151f6290d759df92589f4d500c6fe17533c06d2f3437518afaec6488c1c70fb813c7b0b5db9d9d320e20
 
-pkgname = linux-aarch64-rockchip-6.1-joshua-git-rk3588
+pkgname = linux-aarch64-6.1-rockchip-rk3588-joshua-git
 	pkgdesc = The linux-rockchip kernel, with patches picked by Joshua Riek focusing on RK3588
 	depends = coreutils
 	depends = kmod
 	depends = initramfs
 	optdepends = wireless-regdb: to set the correct wireless channels of your country
 
-pkgname = linux-aarch64-rockchip-6.1-joshua-git-rk3588-headers
+pkgname = linux-aarch64-6.1-rockchip-rk3588-joshua-git-headers
 	pkgdesc = Headers and scripts for building modules for the linux-rockchip kernel, with patches picked by Joshua Riek focusing on RK3588
 	depends = python

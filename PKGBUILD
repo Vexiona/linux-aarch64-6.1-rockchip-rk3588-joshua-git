@@ -4,10 +4,10 @@
 
 _panthor_base=aa54fa4e0712616d44f2c2f312ecc35c0827833d
 _panthor_branch=rk-6.1-rkr3-panthor
-pkgbase=linux-aarch64-rockchip-6.1-joshua-git-rk3588
+pkgbase=linux-aarch64-6.1-rockchip-rk3588-joshua-git
 pkgname=("${pkgbase}"{,-headers})
 pkgver=6.1.43.r1266030.gd3e66fee
-pkgrel=4
+pkgrel=1
 arch=('aarch64')
 license=('GPL2')
 url="https://github.com/Joshua-Riek"
