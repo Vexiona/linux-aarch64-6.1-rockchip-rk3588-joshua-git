@@ -1,6 +1,6 @@
 pkgbase = linux-aarch64-6.1-rockchip-rk3588-joshua-git
 	pkgver = 6.1.43.r1266030.gd3e66fee
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/Joshua-Riek
 	arch = aarch64
 	license = GPL2
